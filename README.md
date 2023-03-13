@@ -1,7 +1,4 @@
 # frontend
 
-edytowałem readme :)
+Describe this app
 
-### przykład na potrzeby prezentacji gita
-
-[x] druga zmiana została dodana
