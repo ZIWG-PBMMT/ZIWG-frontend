@@ -1,4 +1,4 @@
-# frontend
+# ZWIG frontend
 
 Describe this app
 
