@@ -16,7 +16,9 @@ function WebcamImage() {
         setImg(imageSrc);
     }, [webcamRef]);
 
-    const sendImgToAPI = () => {
+    const submit = () => {
+
+        sendImgToAPI(img);
         setImg(null);
     }
 
@@ -39,11 +41,27 @@ function WebcamImage() {
             ) : (
                 <>
                     <img src={img} alt="screenshot" />
-                    <button onClick={sendImgToAPI}>Send to API and Retake</button>
+                    <button onClick={submit}>Send to API and Retake</button>
                 </>
             )}
         </div>
     );
+}
+
+
+function sendImgToAPI(pictureBase64) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ expected_gesture: 'XD', gesture: pictureBase64 })
+    };
+    fetch('http://127.0.0.1:8000/gestures/', requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            console.log(data.is_gesture_correct === "True")
+        });
+
 }
 
 export default WebcamImage;
