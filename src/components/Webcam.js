@@ -15,7 +15,6 @@ function WebcamImage() {
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         setImg(imageSrc);
-        //loadPhoto();
     }, [webcamRef]);
 
     const submit = () => {
@@ -48,12 +47,11 @@ function WebcamImage() {
                 <div className='row'>
                     <div className='column'>
                         <img src={img} alt="screenshot" />
-                        
                         <button onClick={submit}>Send to API and Retake</button>
                     </div>
 
                     <div className='collumn'>
-                        <LoadPhoto></LoadPhoto>
+                        <LoadPhoto/>
                     </div>
                 </div>
                 </>
