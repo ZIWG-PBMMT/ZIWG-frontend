@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import loadPhoto from "./Cat_Images";
+import LoadPhoto from "./Cat_Images";
 
 function WebcamImage() {
     const [img, setImg] = useState(null);
@@ -15,7 +15,7 @@ function WebcamImage() {
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         setImg(imageSrc);
-        // loadPhoto;
+        //loadPhoto();
     }, [webcamRef]);
 
     const submit = () => {
@@ -26,6 +26,7 @@ function WebcamImage() {
 
 
     return (
+        //loadPhoto(),
         <div className="Container">
             {img === null ? (
                 <>
@@ -44,17 +45,16 @@ function WebcamImage() {
                 </>
             ) : (
                 <>
-                <div className='collumn'>
-                    <div className='row'>
+                <div className='row'>
+                    <div className='column'>
                         <img src={img} alt="screenshot" />
+                        
+                        <button onClick={submit}>Send to API and Retake</button>
                     </div>
-                    {/* <div className="row">
-                        <script type="text/javascript" src="Cat_Images.js"> 
-                            import {loadPhoto} from "./Cat_Images.js";
-                            loadPhoto(process.env.PUBLIC_URL + "/signs" + "/cat_3.jpg");
-                        </script>
-                    </div> */}
-                    <button onClick={submit}>Send to API and Retake</button>
+
+                    <div className='collumn'>
+                        <LoadPhoto></LoadPhoto>
+                    </div>
                 </div>
                 </>
             )}

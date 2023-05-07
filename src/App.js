@@ -12,7 +12,7 @@ function App() {
           <WebcamImage />
         </div>
         <div className='collumn'>
-          <LoadPhoto />
+          {/* <LoadPhoto /> */}
         </div>
       </div>
     </div>

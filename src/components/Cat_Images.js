@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 //import catImage from "/public/signs/cat_1.jpg" //process.env.PUBLIC_URL + "/cat_1.jpg"
 
-const loadPhoto = function(photoSource) {
+const LoadPhoto = props => {
     return (
         <div className="signPhoto">
             <React.Fragment>
@@ -13,4 +13,4 @@ const loadPhoto = function(photoSource) {
     );
 }
 
-export default loadPhoto;
+export default LoadPhoto;
