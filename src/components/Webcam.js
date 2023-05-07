@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
+import loadPhoto from "./Cat_Images";
 
 function WebcamImage() {
     const [img, setImg] = useState(null);
@@ -14,6 +15,7 @@ function WebcamImage() {
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         setImg(imageSrc);
+        // loadPhoto;
     }, [webcamRef]);
 
     const submit = () => {
@@ -27,21 +29,33 @@ function WebcamImage() {
         <div className="Container">
             {img === null ? (
                 <>
-                    <Webcam
-                        audio={false}
-                        mirrored={true}
-                        height={640}
-                        width={640}
-                        ref={webcamRef}
-                        screenshotFormat="image/jpeg"
-                        videoConstraints={videoConstraints}
-                    />
-                    <button onClick={capture}>Capture photo</button>
+
+                        <Webcam
+                            audio={false}
+                            mirrored={true}
+                            height={640}
+                            width={640}
+                            ref={webcamRef}
+                            screenshotFormat="image/jpeg"
+                            videoConstraints={videoConstraints}
+                        />
+                        <button onClick={capture}>Capture photo</button>
+                    
                 </>
             ) : (
                 <>
-                    <img src={img} alt="screenshot" />
+                <div className='collumn'>
+                    <div className='row'>
+                        <img src={img} alt="screenshot" />
+                    </div>
+                    {/* <div className="row">
+                        <script type="text/javascript" src="Cat_Images.js"> 
+                            import {loadPhoto} from "./Cat_Images.js";
+                            loadPhoto(process.env.PUBLIC_URL + "/signs" + "/cat_3.jpg");
+                        </script>
+                    </div> */}
                     <button onClick={submit}>Send to API and Retake</button>
+                </div>
                 </>
             )}
         </div>
