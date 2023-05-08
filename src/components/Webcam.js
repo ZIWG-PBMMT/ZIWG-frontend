@@ -21,15 +21,17 @@ function WebcamImage() {
 
         sendImgToAPI(img);
         setImg(null);
+        //LoadPhoto.buttonPressedInWebcam = true; //do tego przypisania obrazka 
     }
 
 
     return (
-        //loadPhoto(),
+        
         <div className="Container">
             {img === null ? (
                 <>
-
+                <div className='row'>
+                    <div className='column'>
                         <Webcam
                             audio={false}
                             mirrored={true}
@@ -40,6 +42,12 @@ function WebcamImage() {
                             videoConstraints={videoConstraints}
                         />
                         <button onClick={capture}>Capture photo</button>
+                    </div>
+                    <div className='collumn'>
+                        <LoadPhoto/>
+                    </div>
+                        
+                </div>
                     
                 </>
             ) : (
