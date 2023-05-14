@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
+import LoadPhoto from "./Cat_Images";
 
 function WebcamImage() {
     const [img, setImg] = useState(null);
@@ -20,28 +21,47 @@ function WebcamImage() {
 
         sendImgToAPI(img);
         setImg(null);
+        //LoadPhoto.buttonPressedInWebcam = true; //do tego przypisania obrazka 
     }
 
 
     return (
+        
         <div className="Container">
             {img === null ? (
                 <>
-                    <Webcam
-                        audio={false}
-                        mirrored={true}
-                        height={640}
-                        width={640}
-                        ref={webcamRef}
-                        screenshotFormat="image/jpeg"
-                        videoConstraints={videoConstraints}
-                    />
-                    <button onClick={capture}>Capture photo</button>
+                <div className='row'>
+                    <div className='column'>
+                        <Webcam
+                            audio={false}
+                            mirrored={true}
+                            height={640}
+                            width={640}
+                            ref={webcamRef}
+                            screenshotFormat="image/jpeg"
+                            videoConstraints={videoConstraints}
+                        />
+                        <button onClick={capture}>Capture photo</button>
+                    </div>
+                    <div className='collumn'>
+                        <LoadPhoto/>
+                    </div>
+                        
+                </div>
+                    
                 </>
             ) : (
                 <>
-                    <img src={img} alt="screenshot" />
-                    <button onClick={submit}>Send to API and Retake</button>
+                <div className='row'>
+                    <div className='column'>
+                        <img src={img} alt="screenshot" />
+                        <button onClick={submit}>Send to API and Retake</button>
+                    </div>
+
+                    <div className='collumn'>
+                        <LoadPhoto/>
+                    </div>
+                </div>
                 </>
             )}
         </div>
