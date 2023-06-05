@@ -4,6 +4,7 @@ import LoadPhoto from "./Cat_Images";
 
 function WebcamImage() {
     const [img, setImg] = useState(null);
+    const [expectedImg, setExpectedImg] = useState(null);
     const webcamRef = useRef(null);
 
     const videoConstraints = {
@@ -19,11 +20,15 @@ function WebcamImage() {
 
     const submit = () => {
 
-        sendImgToAPI(img);
+        sendImgToAPI(img, expectedImg);
         setImg(null);
+        setExpectedImg(null);
         //LoadPhoto.buttonPressedInWebcam = true; //do tego przypisania obrazka 
     }
 
+    const expectedImgHandler = (expectedImg) => {
+        setExpectedImg(expectedImg);
+    };
 
     return (
         
@@ -44,7 +49,8 @@ function WebcamImage() {
                         <button onClick={capture}>Capture photo</button>
                     </div>
                     <div className='collumn'>
-                        <LoadPhoto/>
+                        <LoadPhoto expectedImgHandler={expectedImgHandler} />
+                        <p1>Image ID: {expectedImg}</p1>
                     </div>
                         
                 </div>
@@ -59,7 +65,8 @@ function WebcamImage() {
                     </div>
 
                     <div className='collumn'>
-                        <LoadPhoto/>
+                        <LoadPhoto expectedImgHandler={expectedImgHandler} />
+                        <p1>Image ID: {expectedImg}</p1>
                     </div>
                 </div>
                 </>
@@ -69,11 +76,11 @@ function WebcamImage() {
 }
 
 
-function sendImgToAPI(pictureBase64) {
+function sendImgToAPI(pictureBase64, expectedImgId) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ expected_gesture: 'XD', gesture: pictureBase64 })
+        body: JSON.stringify({ expected_gesture: expectedImgId, gesture: pictureBase64 })
     };
     fetch('http://127.0.0.1:8000/gestures/', requestOptions)
         .then((response) => response.json())

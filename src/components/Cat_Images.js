@@ -2,37 +2,33 @@ import React, { useCallback, useRef, useState } from "react";
 //import catImage from "/public/signs/cat_1.jpg" //process.env.PUBLIC_URL + "/cat_1.jpg"
 
 
-const LoadPhoto = () => {
+const LoadPhoto = ({ expectedImgHandler }) => {
 
     //do wybierania losowo zdjecia
     const [randomImage, setRandomImage] = React.useState('');
 
     const renderImage = () => {
         const Images = [
-            {image: process.env.PUBLIC_URL + "/signs" + "/cat_1.jpg"},
-            {image: process.env.PUBLIC_URL + "/signs" + "/cat_2.jpg"},
-            {image: process.env.PUBLIC_URL + "/signs" + "/cat_3.jpg"},
-            {image: process.env.PUBLIC_URL + "/signs" + "/cat_4.jpg"},
-            {image: process.env.PUBLIC_URL + "/signs" + "/cat_5.jpg"},
-            {image: process.env.PUBLIC_URL + "/signs" + "/cat_6.jpg"},
+            {id: 1, image: process.env.PUBLIC_URL + "/signs" + "/cat_1.jpg"},
+            {id: 2, image: process.env.PUBLIC_URL + "/signs" + "/cat_2.jpg"},
+            {id: 3, image: process.env.PUBLIC_URL + "/signs" + "/cat_3.jpg"},
+            {id: 4, image: process.env.PUBLIC_URL + "/signs" + "/cat_4.jpg"},
+            {id: 5, image: process.env.PUBLIC_URL + "/signs" + "/cat_5.jpg"},
+            {id: 6, image: process.env.PUBLIC_URL + "/signs" + "/cat_6.jpg"},
         ];
 
-        const randomImageIndex = Math.floor(Math.random() * Math.floor(6));
+        const randomImageIndex = Math.floor(Math.random() * Images.length);
+        const randomImage = Images[randomImageIndex];
 
-
-        //if(buttonPressedInWebcam == true) {
-            const generatedImage = Images[randomImageIndex].image; //cos do przekazania dalej do modelu zeby sie zgadzalo
-            //buttonPressedInWebcam = false;
-        //}
-
-        //const randomImage = Images[randomImageIndex].image; //cos do przekazania dalej do modelu zeby sie zgadzalo
-
-        return generatedImage;
+        expectedImgHandler(randomImage.id);
+        return randomImage.image;
     };
 
+    const image = renderImage();
+
     React.useEffect(() => {
-        setRandomImage(renderImage);
-    });
+        setRandomImage(image);
+    }, []);
     //-----------------------
 
     /* tutaj chcialem jakies przypisanie zeby obraz losowalo raz podczas podgladu na zywo z kamery i potem zostal po zrobieniu zdjecia do momentu kiedy kliknie sie "wyslij do API"
