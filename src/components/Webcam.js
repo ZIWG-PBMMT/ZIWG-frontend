@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, Component, useEffect } from "react";
 import Webcam from "react-webcam";
 import LoadPhoto from "./Cat_Images";
 
@@ -76,18 +76,60 @@ function WebcamImage() {
 }
 
 
-function sendImgToAPI(pictureBase64, expectedImgId) {
+
+function sendImgToAPI(pictureBase64, expectedImgId, gesture_uuid) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ expected_gesture: expectedImgId, gesture: pictureBase64 })
     };
+
+    //console.log("piwo");
+
+    var uuid_received;
+
     fetch('http://127.0.0.1:8000/gestures/', requestOptions)
         .then((response) => response.json())
         .then((data) => {
+            uuid_received = data.gesture_uuid;
             console.log(data)
-            console.log(data.is_gesture_correct === "True")
+            console.log("ID : " + data.gesture_uuid)
         });
+
+    const requestOptions_processing = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    }
+    componentDidMount();
+    async function componentDidMount() {
+
+        console.log("piwo");
+        try {
+            const res = await fetch('http://127.0.0.1:8000/gestures/{' + gesture_uuid + '}', requestOptions_processing);
+            const json = await res.json();
+            this.setState({ data: json})
+
+            console.log("piwo2");
+
+            console.log(gesture_uuid);
+
+            if (!res.ok)
+                throw Error(res.statusText);
+        } catch (error) {
+            console.log(error);
+        }
+
+        console.log("piwo3");
+
+        //axios a nie fetch
+        //timeout - 10 s, nie dostanie odpowiedzi to probuje w petli (trza napisac)
+        //jak dostanie odpowiedz pozytywna to wychodzi z pętli
+        //zamiast componentDidMount() użyć hooków, np useEffect() 
+        //ogarnać metode wywołania tego
+    }
+    
+
+
 
 }
 
