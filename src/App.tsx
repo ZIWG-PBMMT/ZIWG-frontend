@@ -1,14 +1,10 @@
-import { useMemo, useRef, useState } from "react";
-import "@/styles/App.css";
-import { axios } from "@/utils";
-
+import { useMemo, useState } from "react";
 import { default as RWebcam } from "react-webcam";
 import webcamStyles from "@/styles/Webcam.module.css";
-import catStyles from "@/styles/CatImage.module.css";
-import useGestures from "./hooks/useGestures";
-import useAPI from "./hooks/useAPI";
-import useWebcam from "./hooks/useWebcam";
-import { GestureResponse } from "./types";
+import gestureStyles from "@/styles/Gesture.module.css";
+import { useGestures, useAPI, useWebcam } from "@/hooks";
+import { GestureResponse } from "@/types";
+import "@/styles/App.css";
 
 const videoConstraints = {
   width: 420,
@@ -19,8 +15,6 @@ const videoConstraints = {
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
 
-  //from webcam
-
   const [
     prevGesture,
     gesture,
@@ -30,7 +24,7 @@ function App() {
   const [webcamRef, { image, capture, reset: resetCapture }] = useWebcam();
 
   const { sendImage, gestureFinished } = useAPI();
-  const [gestureState, setGestureState] = useState<boolean | null>(null);
+  const [gestureState, setGestureState] = useState<GestureResponse>(null);
 
   const submit = async () => {
     if (!image || !gesture?.expectedGesture) return;
@@ -56,7 +50,6 @@ function App() {
     setLoading(false);
   };
 
-  // const [appState, setAppState] = useState<"capture" | "preview" | "response">("capture")
   const appState = useMemo(() => {
     if (!image && gesture && !loading) return "capture";
     if (image && gesture) return "preview";
@@ -97,22 +90,19 @@ function App() {
         </div>
       </div>
 
-      <div className={catStyles.cat}>
+      <div className={gestureStyles.cat}>
         {(appState === "capture" || appState === "preview") && (
           <>
             <p> Pokaż ten gest </p>
-            <img
-              src={`${import.meta.env.VITE_APP_URL}/signs/${gesture?.name}`}
-              alt="cat image"
-            />
+            <img src={`/signs/${gesture?.name}`} alt="cat image" />
           </>
         )}
         {loading && <div className="lds-dual-ring"></div>}
         {appState === "response" &&
           (gestureState ? (
-            <p className={catStyles.good}>Right</p>
+            <p className={gestureStyles.good}>Right</p>
           ) : (
-            <p className={catStyles.bad}>Wrong</p>
+            <p className={gestureStyles.bad}>Wrong</p>
           ))}
       </div>
     </main>

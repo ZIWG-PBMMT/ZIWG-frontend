@@ -1,6 +1,6 @@
 import gestureImages from "@/utils/gestureImages";
 import type { GestureImage } from "@/utils/gestureImages";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const useGestures = () => {
   const randomGesture = () => {
