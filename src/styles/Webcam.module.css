@@ -1,0 +1,43 @@
+:root {
+  --button-height: 2.5rem;
+}
+
+.webcam {
+  display: flex;
+  flex-direction: column;
+}
+
+.webcam video,
+img {
+  border-radius: 1rem;
+}
+
+.webcam__container {
+  position: relative;
+  width: 420px;
+  height: 420px;
+}
+
+.webcam__container > * {
+  position: absolute;
+  inset: 0;
+}
+
+.webcam__footer {
+  display: flex;
+  min-height: var(--button-height);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.webcam button {
+  width: 100%;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  height: var(--button-height);
+  font-size: 1rem;
+  font-weight: bold;
+}

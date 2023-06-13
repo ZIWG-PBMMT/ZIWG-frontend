@@ -1,0 +1,40 @@
+.cat {
+  width: 420px;
+  height: 420px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.cat img {
+  width: 100%;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.cat p:first-child {
+  @media screen and (min-width: 920px) {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-top: -4rem;
+  }
+}
+
+.good,
+.bad {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  margin-top: 1rem;
+}
+
+.good {
+  color: #00b894;
+}
+
+.bad {
+  color: #d63031;
+}
